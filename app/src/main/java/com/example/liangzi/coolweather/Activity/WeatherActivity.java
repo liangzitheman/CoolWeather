@@ -13,6 +13,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.liangzi.coolweather.R;
+import com.example.liangzi.coolweather.Service.AutoUpdateService;
 import com.example.liangzi.coolweather.Util.HttpCallbackListener;
 import com.example.liangzi.coolweather.Util.HttpUtil;
 import com.example.liangzi.coolweather.Util.Utility;
@@ -63,7 +64,7 @@ public class WeatherActivity extends Activity implements OnClickListener {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.weather_layout);
-// 初始化各控件
+        // 初始化各控件
         weatherInfoLayout = (LinearLayout) findViewById(R.id.weather_info_layout);
         cityNameText = (TextView) findViewById(R.id.city_name);
         publishText = (TextView) findViewById(R.id.publish_text);
@@ -115,8 +116,7 @@ public class WeatherActivity extends Activity implements OnClickListener {
     ** 查询县级代号所对应的天气代号。
     */
     private void queryWeatherCode(String countyCode) {
-        String address = "http://www.weather.com.cn/data/list3/city" +
-                countyCode + ".xml";
+        String address = "http://www.weather.com.cn/data/list3/city" + countyCode + ".xml";
         queryFromServer(address, "countyCode");
     }
 
@@ -175,8 +175,7 @@ public class WeatherActivity extends Activity implements OnClickListener {
      * 从SharedPreferences文件中读取存储的天气信息，并显示到界面上。
      */
     private void showWeather() {
-        SharedPreferences prefs = PreferenceManager.
-                getDefaultSharedPreferences(this);
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
         cityNameText.setText( prefs.getString("city_name", ""));
         temp1Text.setText(prefs.getString("temp1", ""));
         temp2Text.setText(prefs.getString("temp2", ""));
@@ -185,6 +184,9 @@ public class WeatherActivity extends Activity implements OnClickListener {
         currentDateText.setText(prefs.getString("current_date", ""));
         weatherInfoLayout.setVisibility(View.VISIBLE);
         cityNameText.setVisibility(View.VISIBLE);
+
+        Intent intent = new Intent(this, AutoUpdateService.class);
+        startService(intent);
     }
 }
 

@@ -22,8 +22,10 @@
         </activity>
 
         <activity android:name="com.example.liangzi.coolweather.Activity.WeatherActivity">
-
         </activity>
+
+        <service android:name="com.example.liangzi.coolweather.Service.AutoUpdateService"></service>
+        <receiver android:name="com.example.liangzi.coolweather.Receiver.AutoUpdateReceiver"></receiver>
 
 
     </application>
