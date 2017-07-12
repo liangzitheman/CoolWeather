@@ -48,6 +48,8 @@ public class WeatherActivity extends Activity implements OnClickListener {
      * 用于显示当前日期
      */
     private TextView currentDateText;
+
+
     /**
      * 切换城市按钮
      */
@@ -98,8 +100,7 @@ public class WeatherActivity extends Activity implements OnClickListener {
                 break;
             case R.id.refresh_weather:
                 publishText.setText("同步中...");
-                SharedPreferences prefs = PreferenceManager.
-                        getDefaultSharedPreferences(this);
+                SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
                 String weatherCode = prefs.getString("weather_code", "");
                 if (!TextUtils.isEmpty(weatherCode)) {
                     queryWeatherInfo(weatherCode);
